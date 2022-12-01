@@ -1,2 +1,2 @@
 #!/bin/bash
-exho $(ls -l)
+echo $(ls -l)
