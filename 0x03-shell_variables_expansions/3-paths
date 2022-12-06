@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $(ls PUSH/wc-1)
+echo $(ls $PUSH/wc-1)
