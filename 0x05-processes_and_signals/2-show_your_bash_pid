@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# This script displays lines containing the bash
+# shellcheck disable=SC2009
+# 
+# Specs:
+#	pgrep command is prohibited.
+#	The third line must be # shellcheck disable=SC2009
+
+ps -aux | grep bash
