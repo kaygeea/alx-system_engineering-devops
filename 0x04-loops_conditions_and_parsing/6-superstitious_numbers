@@ -9,9 +9,9 @@ n=0
 while [ $n -lt 20 ]; do
 	n=$((n+1))
 	case $n in
-		4) echo "bad luck from China";;
-		9) echo "bad luck from Japan";;
-		17) echo "bad luck from Italy";;
+		4) echo "$n"; echo "bad luck from China";;
+		9) echo "$n"; echo "bad luck from Japan";;
+		17) echo "$n"; echo "bad luck from Italy";;
 		*) echo  "$n"
 	esac
 done
