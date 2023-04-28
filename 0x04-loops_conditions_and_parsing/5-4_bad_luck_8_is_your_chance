@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 #This script displays a string 10 times, using a while loop
 
-n=1
+n=0
 
-while [ $n -le 10 ]; do
-	n=$((n+1))
-	if ((n == 5))
+while [ $n -lt 10 ]
+do
+	if ((n == 3 ))
 	then
 		echo "bad luck"
-		continue
-	elif ((n == 9))
+	elif ((n == 7 ))
 	then
 		echo "good luck"
-		continue
+	else
+		echo "Best School"
 	fi
-	echo "Best school"
+	n=$((n+1))
 done
