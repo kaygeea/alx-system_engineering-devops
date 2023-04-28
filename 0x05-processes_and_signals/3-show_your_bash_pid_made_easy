@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# This script filters and displays PID & process name based on names containing "bash".
+
+pgrep bash -l
