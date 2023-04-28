@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# This script gives information about a file while checking if file exists and prints.
+# Specs:
+#	Print based on whether the file exists or not.
+#	Print based on whether the file is empty or not and is a regular file.
+
+if [ -e "school" ]
+then
+  echo "school file exists"
+  if [ -s "school" ]
+  then
+    echo "school file is not empty"
+  else
+    echo "school file is empty"
+  fi
+
+  if [ -f "school" ]
+  then
+    echo "school is a regular file"
+  fi
+else
+  echo "school file does not exist"
+fi
