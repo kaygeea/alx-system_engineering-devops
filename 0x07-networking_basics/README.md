@@ -2,11 +2,10 @@
 
 <h3>Part 1 of ALX SE project on basics of networking covering the following:</h3>
 <ol>
-<h5>
 <li>OSI model</li>
 <li>Types of network (Internet, LAN, WAN)</li>
 <li>MAC & IP address</li>
 <li>UDP & TCP</li>
 <li>UDP & TCP ports (SSH, HTTP, HTTPS)</li>
-<li>Internet Control Message Protocol (ICMP)</li></h5>
+<li>Internet Control Message Protocol (ICMP)</li>
 </ol>
