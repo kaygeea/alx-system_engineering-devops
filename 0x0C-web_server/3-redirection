@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Confingures a new Ubuntu machine with redirection commands
+apt-get update
+apt-get -y install nginx
+echo "Hello World!" | sudo tee /var/www/html/index.html
+sudo tee /etc/nginx/sites-available/default > /dev/null <<EOT
+server {
+    listen 80;
+    server_name kaygeea.tech;
+
+    location / {
+        return 301 https://new_domain.com\$request_uri;
+    }
+}
+EOT
+
+service nginx start
