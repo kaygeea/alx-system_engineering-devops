@@ -1,47 +1,10 @@
 #!/usr/bin/env bash
 # This script configures a new Ubuntu machine based on the following requirements:
-#    a. Adds a custom header to the response header named - "X-Served-By"
-#    b. The value of the custom header will be set to the server that nginx runs a request on.
-#    c. Install & configure HAproxy so that it send traffic to web-01 and web-02
-#!/usr/bin/env bash
-# This script configures a new Ubuntu machine based on the following requirements:
-#     a. Adds a custom header to the response header named - "X-Served-By"
-#     b. The value of the custom header will be set to the server that nginx runs a request on.
-apt-get update
-apt-get -y install nginx
-ufw allow 'Nginx HTTP'
-# Create necessary directories and set permissions
-sudo mkdir -p /var/www/html /var/www/error
-sudo chmod -R 755 /var/www
-
-# Create index and 404 pages
-echo 'Hello World!' | sudo tee /var/www/html/index.html >/dev/null
-echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html >/dev/null
-
-# Configure Nginx with custom header
-server_config=$(cat <<EOF
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    root /var/www/html;
-    index index.html index.htm index.nginx-debian.html;
-    server_name _;
-    add_header X-Served-By \$hostname;
-    location / {
-        try_files \$uri \$uri/ =404;
-    }
-    if (\$request_filename ~ redirect_me) {
-        rewrite ^ https://youtube.com permanent;
-    }
-    error_page 404 /404.html;
-    location = /404.html {
-        internal;
-    }
-}
-EOF
-)
-
-echo "$server_config" | sudo tee /etc/nginx/sites-enabled/default >/dev/null
+#    a. Install & configure HAproxy so that it sends traffic to web-01 and web-02.
+#    b. Set up HAproxy so it can be managed via an init script.
+#    c. Set up HAproxy to distribute requests using a roundrobin algorithm
+# NOTE: By default, requests are sent to the pool of servers using round-robin load-balancing;
+#	as such it does not need to be stated explicitly.
 
 # Install HAproxy version 2.7-stable
 apt-get -y install --no-install-recommends software-properties-common
@@ -49,26 +12,25 @@ add-apt-repository ppa:vbernat/haproxy-2.7
 apt-get -y install haproxy=2.7.\*
 
 # Enable HAProxy to be managed by an init script
-echo 'ENABLED=1' | sudo tee /etc/default/haproxy
+echo 'ENABLED=1' | sudo tee -a /etc/default/haproxy
 
 # Configure HAproxy so that it sends traffic to web-01 & web-02
 haproxy_config=$(cat <<EOF
 
-frontend my-frontend
+frontend kaygeea-frontend
         mode http
         bind *:80
-        default_backend myWeb-servers
+        default_backend kaygeea-backend
 
-backend myWeb-servers
+backend kaygeea-backend
         mode http
-        balance roundrobin
         option httpchk
-        server s001 52.207.189.239:80 check
-	server s002 52.87.8.248:80 check
+        server web-001 52.207.189.239:80 check
+	server web-002 52.87.8.248:80 check
 EOF
 )
 
 echo "$haproxy_config" | sudo tee -a /etc/haproxy/haproxy.cfg >/dev/null
 
-# Restart Nginx service
-sudo service nginx restart
+# Restart HAproxy service
+sudo service haproxy restart
