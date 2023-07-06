@@ -25,8 +25,8 @@ frontend kaygeea-frontend
 backend kaygeea-backend
         mode http
         option httpchk
-        server web-001 52.207.189.239:80 check
-	server web-002 52.87.8.248:80 check
+        server web-01 52.207.189.239:80 check
+	server web-02 52.87.8.248:80 check
 EOF
 )
 
