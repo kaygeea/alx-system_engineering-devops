@@ -13,18 +13,16 @@
 
 sudo apt update
 sudo apt-get -y install haproxy
-# Enable HAProxy to be managed by an init script
-echo 'ENABLED=1' | sudo tee -a /etc/default/haproxy
 
 # Configure HAproxy so that it sends traffic to web-01 & web-02
 haproxy_config=$(cat <<EOF
 
-frontend kaygeea-frontend
+frontend server-frontend
         mode http
         bind *:80
-        default_backend kaygeea-backend
+        default_backend server-backend
 
-backend kaygeea-backend
+backend server-backend
         mode http
         option httpchk
         server web-01 52.207.189.239:80 check
@@ -32,7 +30,10 @@ backend kaygeea-backend
 EOF
 )
 
-echo "$haproxy_config" | sudo tee -a /etc/haproxy/haproxy.cfg >/dev/null
+echo "$haproxy_config" | sudo tee -a /etc/haproxy/haproxy.cfg
+
+# Enable HAProxy to be managed by an init script
+echo 'ENABLED=1' | sudo tee -a /etc/default/haproxy
 
 # Restart HAproxy service
 sudo service haproxy restart
