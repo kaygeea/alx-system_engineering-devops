@@ -7,10 +7,12 @@
 #	as such it does not need to be stated explicitly.
 
 # Install HAproxy version 2.7-stable
-apt-get -y install --no-install-recommends software-properties-common
-add-apt-repository ppa:vbernat/haproxy-2.7
-apt-get -y install haproxy=2.7.\*
+# apt-get -y install --no-install-recommends software-properties-common
+# add-apt-repository ppa:vbernat/haproxy-2.7
+# apt-get -y install haproxy=2.7.\*
 
+sudo apt update
+sudo apt-get -y install haproxy
 # Enable HAProxy to be managed by an init script
 echo 'ENABLED=1' | sudo tee -a /etc/default/haproxy
 
