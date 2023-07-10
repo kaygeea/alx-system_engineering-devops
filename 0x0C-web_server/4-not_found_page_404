@@ -1,32 +1,8 @@
 #!/usr/bin/env bash
-# Confingures a new Ubuntu machine with redirection commands
-apt-get update
+# Confingures a new Ubuntu machine with redirection command.
+apt-get -y update
 apt-get -y install nginx
-echo "Hello World!" | sudo tee /var/www/html/index.html
-
-# Configuration for redirection on server
-sudo tee /etc/nginx/sites-available/default > /dev/null <<EOT
-server {
-    listen 80;
-    server_name kaygeea.tech;
-
-    location / {
-        return 301 https://new_domain.com\$request_uri;
-    }
-}
-EOT
-
-# Configuration for Page Not Found 404 error
-sudo tee /var/www/html/404.html > /dev/null <<EOT
-<!DOCTYPE html>
-<html>
-<head>
-    <title>404 - Not Found</title>
-</head>
-<body>
-    <h1>Ceci n'est pas une page.</h1>
-</body>
-</html>
-EOT
-
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
+sed -i "s/server_name _;/server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/Koyejooo permanent;\n\n\terror_page 404 \/custom_404.html;\n\tlocation = \/custom_404.html {\n\t\troot \/usr\/share\/nginx\/html;\n\t\tinternal;\n\t}/" /etc/nginx/sites-available/default
 service nginx restart
