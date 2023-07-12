@@ -1,2 +1,37 @@
 #!/usr/bin/env bash
-# Create a function to display information about subdomain(s) of a domain.
+#  This script defines a function to retrieve information about the subdomain(s)
+#+ of a domain and then runs the func to display the information in a specified format.
+#
+#  The function takes 2 arguments:
+#+	a. domain(str) - mandatory argument for the domain name to be queried.
+#+	b. subdomain(str) - optional argument to specify a sub/d to be requested.
+# Usage: ./0-world_wide_web <domain name> [<subdomain name>]
+
+
+function get_dig
+{
+	if [ $# -eq 2 ]
+	then
+		dig "$2" +noall +answer
+		return 2
+	elif [ $# -eq 1 ]
+	then
+		dig "$1" | grep -A 3 "ANSWER SECTION:" | tail -n +2
+		return 3
+	else
+		return 1
+	fi
+}
+get_dig "$@" > /dev/null
+return_val=$?
+
+if [ "$return_val" -eq 2 ]
+then
+	get_dig "$@" | awk '{ sub(/\..*/,"",$1); printf("The subdomain %s is a %s record and points to %s\n", $1, $4, $5) }'
+elif [ "$return_val" -eq 3 ]
+then 
+	get_dig "$@" | awk '{ sub(/\..*/,"",$1); printf("The subdomain %s is a %s record and points to %s\n", $1, $4, $5) }'
+else
+	echo -e '\033[0;33mPlease provide at least, a domain name!' # Coloured output
+	echo -e '\033[0;34mUsage:\033[0m./0-world_wide_web <domain name> [<subdomain name>]' # Coloured output
+fi
