@@ -20,7 +20,7 @@ then
   dns_lookup "$1" "web-02"
 elif [ "$#" == 2 ]
 then
-  domain_information "$1" "$2"
+  dns_lookup "$1" "$2"
 else
 	echo -e '\033[0;33mPlease provide a domain!' # Coloured output
         echo -e '\033[0;34mUsage:\033[0m ./0-world_wide_web <domain> [<subdomain name>]' # Coloured output
