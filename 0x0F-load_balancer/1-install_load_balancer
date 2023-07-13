@@ -17,14 +17,15 @@ apt-get -y install haproxy
 # edit config file
 server_config=\
 "
-frontend  ehoneah-frontend
+frontend kaygeea-frontend
         bind *:80
-        mode http
-        default_backend ehoneah-backend
-backend ehoneah-backend
+	stats uri /haproxy?stats
+        default_backend kaygeea-servers
+
+backend kaygeea-servers
         balance roundrobin
-        server 212173-web-01 100.25.19.204:80 check
-        server 212173-web-02 54.157.159.85:80 check
+        server 212173-web-01 52.207.189.239:80 check
+        server 212173-web-02 52.87.8.248:80 check
 "
 echo "$server_config" | sudo tee -a /etc/haproxy/haproxy.cfg
 
