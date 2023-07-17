@@ -1,0 +1,18 @@
+# Ensure default UFW configuration to deny all incoming connections
+sudo ufw default deny incoming
+
+# Ensure default UFW configuration to allow all outgoing connections
+sudo ufw default allow outgoing
+
+# Allow incoming traffic on TCP port 22
+sudo ufw allow 22
+
+# Allow incoming traffic on TCP port 443
+sudo ufw allow 443
+
+# Allow incoming traffic on TCp port 80
+sudo ufw allow 80
+
+# Disable & enable UFW for changes to take effect
+sudo ufw disable
+sudo ufw enable
