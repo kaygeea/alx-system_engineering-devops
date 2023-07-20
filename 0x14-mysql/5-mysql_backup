@@ -4,7 +4,7 @@
 # The script takes one argument - the password used to connect to the MySQL database.
 
 # Create MySQL dump
-mysqldump -u root -p "$1" --all-databases > backup.sql
+mysqldump -u root -p"$1" --all-databases > backup.sql
 
 # Archive and compress the dump file created
 tar -czf $(date +%d-%m-%Y).tar.gz backupp.sql
