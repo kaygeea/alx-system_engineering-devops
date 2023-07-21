@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#  This conscientious script changes the user that a given sandbox container's Nginx runs as.
+#+ It also handles the port conflict between nginx and apache2, without killing anyone.
+
+# Step 1: set appropriate permission(s) on files, for editing
+chmod 644 /etc/nginx/nginx.conf
+
+# Step 2: edit Nginx config file to change to prescribed user
+sed -i "s/#user www-data/user nginx/" /etc/nginx/nginx.conf
+
+# Step 3: set nginx to listen on all active IPs on port 8080
+sed -i 's/80/8080/' /etc/nginx/sites-enabled/default
+
+# Step 4: change apache2 port from listening on port 8080, to avoid conflict
+sed -i 's/8080/80/' /etc/apache2/ports.conf
+
+# Step 5: apply correlating port change to VirtualHost statement of apache2
+sed -i 's/8080>/80>/' /etc/apache2/sites-available/000-default.conf
+
+# Step 6: restart apache2 to apply config changes
+sudo service apache2 restart
+
+# Step 7: restart nginx with newly assigned user
+sudo service nginx restart
