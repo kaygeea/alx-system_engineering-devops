@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#  This script to change the user that a given sandbox container's Nginx runs as.
+#  This script changes the user that a given sandbox container's Nginx runs as.
 #+ It also handles the port conflict between nginx and apache2, by killing apache2.
 
 # Step 1: set appropriate permission(s) on files, for editing
@@ -21,7 +21,7 @@ sed -i 's/80/8080/' /etc/nginx/sites-enabled/default
 # sudo service apache2 restart
 
 # Step 4: kill apache2 to avoid conflict
-pkill apache2
+pkill -f apache2
 
 # Step 5: restart nginx with newly assigned user
-sudo service nginx restart
+sudo -u nginx service nginx restart
