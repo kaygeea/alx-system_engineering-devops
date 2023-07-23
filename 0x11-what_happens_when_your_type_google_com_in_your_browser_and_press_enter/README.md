@@ -1,6 +1,6 @@
 <h1>0x11. What happens when you type google.com in your browser and press Enter</h1>
 
-<h3>This project entails a written blog post explaining what happens when a client types https://www.google.com)</a> in their browser and press the <code>Enter</code> key. It covers the following areas of the workflow process:</h3>
+<h3>This project entails a written blog post explaining what happens when you type "https://www.google.com" in your web browser and press the <code>Enter</code> key. It covers the following areas of the workflow process:</h3>
 <ol>
 <li>DNS request</li>
 <li>TCP/IP</li>
