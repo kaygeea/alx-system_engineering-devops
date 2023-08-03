@@ -18,7 +18,7 @@ if __name__ == "__main__":
     api_url = f"https://jsonplaceholder.typicode.com/users/{EmployeeId}"
 
     response = requests.get(api_url)
-    EmployeeName = response.json().get('name')
+    EmployeeName = response.json().get('username')
 
     ToDoUrl = api_url + "/todos"
     response = requests.get(ToDoUrl)
