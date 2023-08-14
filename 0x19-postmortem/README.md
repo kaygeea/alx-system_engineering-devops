@@ -5,4 +5,4 @@
 2. Timeline.
 3. Root cause and resolution.
 4. Corrective and preventive measures.  
-The post-mortem as prepared can be found here: <a href="https://1drv.ms/w/s!AtP6tFnqEKe70GZwCDGLjKIuiLEH?e=IGoCjK" target="_blank">Kaygeea.tech Outage Incident Report</a>
+The post-mortem as prepared can be found here: <a href="https://medium.com/@adinlewakoyejo/kaygeea-tech-outage-incident-report-a-sample-post-mortem-report-e754ec5eaece" target="_blank">Kaygeea.tech Outage Incident Report</a>
